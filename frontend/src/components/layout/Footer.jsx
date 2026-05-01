@@ -11,7 +11,7 @@ const Footer = () => {
               <span className="font-bold text-xl tracking-tight text-white">SkillSwap</span>
             </Link>
             <p className="text-sm max-w-sm">
-              Exchange Skills, Not Money. A peer-to-peer skill exchange platform built for the SRM Institute Mini Project.
+              Exchange Skills, Not Money. A peer-to-peer skill exchange platform.
             </p>
           </div>
           <div>
@@ -29,9 +29,8 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="border-t border-slate-800 mt-12 pt-8 text-sm flex flex-col sm:flex-row justify-between items-center">
+        <div className="border-t border-slate-800 mt-12 pt-8 text-sm flex flex-col items-center justify-center text-center">
           <p>&copy; 2026 Skill Swap by Tanay Ghate. All Rights Reserved.</p>
-          <p className="mt-2 sm:mt-0 text-slate-500">Built for SRM Institute of Science & Technology</p>
         </div>
       </div>
     </footer>
