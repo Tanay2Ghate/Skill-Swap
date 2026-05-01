@@ -18,8 +18,8 @@ services:
       - key: JWT_REFRESH_SECRET
         generateValue: true
 
-  - type: psql
-    name: skillswap-db
+databases:
+  - name: skillswap-db
     plan: free
     databaseName: skillswap_prod
     user: skillswap_user
