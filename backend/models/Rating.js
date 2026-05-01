@@ -20,7 +20,7 @@ const Rating = sequelize.define('Rating', {
     allowNull: false
   },
   score: {
-    type: DataTypes.TINYINT,
+    type: DataTypes.INTEGER,
     allowNull: false,
     validate: {
       min: 1,
