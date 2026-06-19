@@ -27,8 +27,6 @@ I built this as a comprehensive full-stack project to solve a common problem: pe
 - **JWT & bcryptjs:** Handling secure user authentication and password hashing.
 - **Multer:** Managing file and image uploads.
 
-## Deployment
 
-The platform is designed with a decoupled architecture. The backend is configured for deployment on Render (utilizing the included `render.yaml` configuration), while the frontend is optimized for deployment on Vercel.
 
 ---
