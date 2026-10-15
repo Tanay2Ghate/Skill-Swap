@@ -18,7 +18,7 @@ services:
       - key: JWT_REFRESH_SECRET
         generateValue: true
       - key: CLIENT_URL
-        value: https://skill-swap-omega.vercel.app
+        value: https://skill-swap-wheat-chi.vercel.app
       - key: JWT_ACCESS_EXPIRES
         value: 15m
       - key: JWT_REFRESH_EXPIRES
