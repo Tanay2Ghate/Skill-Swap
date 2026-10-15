@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const { Server } = require('socket.io');
 
 const { sequelize, Skill } = require('./models');
@@ -14,22 +15,32 @@ const seedSkills = require('./utils/seedSkills');
 const app = express();
 const server = http.createServer(app);
 
+const allowedOrigins = process.env.CLIENT_URL
+  ? [process.env.CLIENT_URL]
+  : ['http://localhost:5173', 'http://localhost:3000'];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. mobile apps, curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS blocked: ${origin}`));
+    }
+  },
+  credentials: true
+};
+
 // Socket.io initialization
 const io = new Server(server, {
-  cors: {
-    origin: process.env.CLIENT_URL || true, // Allow frontend origin or all for local dev
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-  }
+  cors: { ...corsOptions }
 });
 socketHandler(io);
 
 // Security Middlewares
 app.use(helmet());
-app.use(cors({
-  origin: process.env.CLIENT_URL || true, // Allow frontend origin or all for local dev
-  credentials: true
-}));
+app.use(cors(corsOptions));
+app.use(cookieParser());
 
 // Rate limiting
 const limiter = rateLimit({
