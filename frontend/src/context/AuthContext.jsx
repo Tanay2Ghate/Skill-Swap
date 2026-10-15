@@ -12,12 +12,14 @@ export const AuthProvider = ({ children }) => {
     const initAuth = async () => {
       if (accessToken) {
         try {
-          const { data } = await api.get('/users/me'); // We mock this endpoint to succeed for now
-          setUser(data);
+          const { data } = await api.get('/users/me');
+          setUser(data.user || data);
         } catch (error) {
-          // Fallback if the endpoint is not ready, to allow frontend development to continue
-          setUser({ id: 1, name: 'Test User', email: 'test@example.com' });
-          console.warn('User endpoint not ready, mocking user.');
+          // Token is invalid or expired — clear everything so user must re-login
+          console.warn('Failed to fetch user profile, clearing session:', error?.response?.data?.message || error.message);
+          localStorage.removeItem('accessToken');
+          setAccessToken(null);
+          setUser(null);
         }
       }
       setIsLoading(false);
@@ -42,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, accessToken, isLoading, login, logout, isAuthenticated: !!accessToken }}>
+    <AuthContext.Provider value={{ user, accessToken, isLoading, login, logout, isAuthenticated: !!accessToken && !!user }}>
       {children}
     </AuthContext.Provider>
   );

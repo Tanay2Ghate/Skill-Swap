@@ -76,7 +76,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 // Sync DB and Start Server
-sequelize.sync({ alter: process.env.NODE_ENV === 'development' })
+sequelize.sync({ alter: false })
   .then(async () => {
     console.log('Database synced successfully.');
     // Seed skills if empty
