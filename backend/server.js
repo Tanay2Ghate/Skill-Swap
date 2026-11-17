@@ -101,4 +101,5 @@ sequelize.sync({ alter: false })
   })
   .catch((err) => {
     console.error('Failed to sync database:', err);
+    process.exit(1);
   });
